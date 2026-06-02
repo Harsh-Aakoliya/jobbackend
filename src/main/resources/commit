@@ -1,0 +1,3 @@
+segregated the business logic
+(moved logic to implementation interface)
+also added put and delete mappings

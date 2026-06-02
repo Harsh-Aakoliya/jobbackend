@@ -10,32 +10,57 @@ import java.util.List;
 
 @RestController
 public class JobController {
-    List<Job> jobs = new ArrayList<>();
+    JobService jobService;
+    JobController(JobService jobService) {
+        this.jobService = jobService;
+    }
     @GetMapping("/jobs")
     public ResponseEntity<List<Job>> findAll(){
-        return ResponseEntity.status(HttpStatus.OK).body(jobs);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(jobService.findAllJobs());
     }
     @PostMapping("/job")
     public ResponseEntity<String> saveJob(@RequestBody Job job){
-        jobs.add(job);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Job added successfull");
+        return ResponseEntity.status(HttpStatus.CREATED).body(jobService.createJob(job));
     }
     @GetMapping("/job")
     public ResponseEntity<Job> findJobByIdUsingRequestParam(@RequestParam Long jobId){
-        Job existingJob = jobs.stream().filter(j -> j.getId().equals(jobId)).findFirst().orElse(null);
+        Job existingJob = jobService.findJobById(jobId);
         if(existingJob == null){
             return ResponseEntity.notFound().build();
-        } else {
-            return ResponseEntity.status(HttpStatus.OK).body(existingJob);
         }
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(existingJob);
     }
     @GetMapping("/job/{job_id}")
     public ResponseEntity<Job> findJobByIdUsingPathvariable(@PathVariable("job_id") Long jobId){
-        Job existingJob = jobs.stream().filter(j -> j.getId().equals(jobId)).findFirst().orElse(null);
+        Job existingJob = jobService.findJobById(jobId);
         if(existingJob == null){
             return ResponseEntity.notFound().build();
-        } else {
-            return ResponseEntity.status(HttpStatus.OK).body(existingJob);
         }
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(existingJob);
+    }
+
+
+    @DeleteMapping("/job/{id}")
+    public ResponseEntity<String> deleteJobByid(@PathVariable("id") Long jobId){
+        Job deletedJob = jobService.deleteJobById(jobId);
+        if(deletedJob == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        return ResponseEntity.status(HttpStatus.OK).body("Job deleted successfully");
+    }
+
+    @PutMapping("/job/{id}")
+    public ResponseEntity<String> updateJob(@PathVariable("id") Long id, @RequestBody Job job){
+        Job updatedJob=jobService.updateJobById(id,job);
+        if(updatedJob == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        return ResponseEntity.status(HttpStatus.OK).body("job updated successfully");
     }
 }
