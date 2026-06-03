@@ -1,3 +1,19 @@
 spring:
   application:
     name: jobbackend
+
+  h2:
+    console:
+      enabled: true # this will allow to see h3 console on localhost:8080/h2-console also it requires spring-boot-h2console dependency
+      path: /h2-console # optional but recommended so visit http://localhost:8080/h2-console for H2 console
+
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
