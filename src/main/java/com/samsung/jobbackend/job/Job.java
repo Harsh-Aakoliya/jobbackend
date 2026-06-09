@@ -1,5 +1,7 @@
 package com.samsung.jobbackend.job;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.samsung.jobbackend.company.Company;
 import jakarta.persistence.*;
 
 @Entity
@@ -12,6 +14,9 @@ public class Job {
     private String description;
     private String minSalary;
     private String maxSalary;
+
+    @ManyToOne
+    Company company;
 
     //default constructor is needed for JPA
     public Job() {
@@ -75,4 +80,12 @@ public class Job {
     }
 
     private String location;
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
 }

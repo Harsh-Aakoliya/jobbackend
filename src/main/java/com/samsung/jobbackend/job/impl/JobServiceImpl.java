@@ -24,6 +24,13 @@ public class JobServiceImpl implements JobService {
     @Override
     public String createJob(Job job) {
         jobRepository.save(job);
+        //here we can or cannot receive a company
+        //if we are not receiving company then it's ok here it will be ignored and on findingalljob we will get null for that job
+        //but if we are receving the company and if that company with provided id do not exists in company table then it will give
+        //referential integraty error
+        //so for that case here we need to make api call first if company with that received id do not exists
+
+        //but as of now we are assuming that company already exists
         return "Job added successfully";
     }
 
@@ -38,7 +45,6 @@ public class JobServiceImpl implements JobService {
         if(!jobRepository.existsById(id)){
             return false;
         }
-
         jobRepository.deleteById(id);
         return true;
     }

@@ -1,1 +1,3 @@
-jpa with H2 database
+added company and joined it with job table
+onetomany, manytomany, mappedby, jsonignore, cascade
+referential integraty etc...
