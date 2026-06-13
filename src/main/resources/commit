@@ -1,3 +1,22 @@
-actuator: to monitor application's state like CPU usage, health, beans, logging, information, etc..
-we can see actuator log when we start spring application
-graceful shutdown: means if there is any ongoing request is there then do not shutdown
+Virtualization allows you to run given OS on HOST machine irrespective of what is HOST machine's OS
+but you need to install entire guest OS on given host machine and using hypervisor host machine will provide resources to guest os
+but with help of docker we will only install necessary libraries and binaries on given host machine to run guest OS and with the help
+of docker engine(which contains docker daemon, API, cli and docker cli interacts with docker daemon with docker api, also that daemon lies in host os) it will
+provide resources to that guest os
+docker daemon is responsible for interacting with docker containers and images
+
+docker registries are like
+docker hub
+aws elastic container registries
+artifact registries
+azure container registries
+quay by red hat
+
+How to containerise spring boot app
+1) use dockerfile
+2) use spring boot maven plugin: run below command
+ ./mvnw spring-boot:build-image "-Dspring-boot.build-image.imageName=jobbackend"
+ so it will create a docker image named jobbackend and we can push using:
+ docker tag jobbackend:latest harshaakoliya20102003/firstjobimage:latest  => tag local image to docker registry name
+ docker push harshaakoliya20102003/firstjobimage:latest
+
