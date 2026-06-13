@@ -1,1 +1,3 @@
-added Review and joined it with company table
+actuator: to monitor application's state like CPU usage, health, beans, logging, information, etc..
+we can see actuator log when we start spring application
+graceful shutdown: means if there is any ongoing request is there then do not shutdown

@@ -17,3 +17,27 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: create-drop
+
+#actuator configuration to get more endpoints than default one
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*" # means what endpoints do you want to allow. * means all
+
+  endpoint:
+    health:
+      show-details: always #it can also be never
+
+    shutdown:
+      enabled: true
+
+  info:
+    env:
+      enabled: true # to enable below information to http://localhost:8080/actuator/info endpoint
+
+info:
+  app:
+    name: job-backend
+    description: description of job backend
+    version: 1.0.0
