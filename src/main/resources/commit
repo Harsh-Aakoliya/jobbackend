@@ -1,3 +1,1 @@
-added company and joined it with job table
-onetomany, manytomany, mappedby, jsonignore, cascade
-referential integraty etc...
+added Review and joined it with company table

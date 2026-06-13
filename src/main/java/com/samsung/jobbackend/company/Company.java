@@ -1,6 +1,7 @@
 package com.samsung.jobbackend.company;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.samsung.jobbackend.Review.Review;
 import com.samsung.jobbackend.job.Job;
 import jakarta.persistence.*;
 
@@ -18,8 +19,11 @@ public class Company {
         mappedBy = "company",
         cascade = CascadeType.ALL //if this company is deleted then delete all the jobs associated with it
     )
-    @JsonIgnore // to remove infinite recursive calles
+    @JsonIgnore // to remove infinite recursive calls
     private List<Job> jobs;//one company can have multiple jobs
+
+    @OneToMany(mappedBy = "company")
+    private List<Review> reviews;
 
     public Company() {
     }
@@ -61,5 +65,13 @@ public class Company {
 
     public void setJobs(List<Job> jobs) {
         this.jobs = jobs;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
     }
 }
