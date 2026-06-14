@@ -1,0 +1,26 @@
+services:
+  postgres:
+    container_name: jobbackend_postgres
+    image: postgres
+    environment:
+      POSTGRES_DB: jobbackend
+      POSTGRES_USER: jobbackend
+      POSTGRES_PASSWORD: jobbackend
+    ports:
+      - "5432:5432"
+    networks:
+      - jobbackend_network
+
+  pgadmin:
+    container_name: jobbackend_pgadmin
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@adming.com
+      PGADMIN_DEFAULT_PASSWORD: pgadmin
+    ports:
+      - "80:80"
+    networks:
+      - jobbackend_network
+
+networks:
+  jobbackend_network:
