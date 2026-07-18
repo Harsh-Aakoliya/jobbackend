@@ -1,7 +1,5 @@
 package com.samsung.companyms.company;
 
-import com.samsung.jobbackend.company.Company;
-import com.samsung.jobbackend.company.CompanyService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

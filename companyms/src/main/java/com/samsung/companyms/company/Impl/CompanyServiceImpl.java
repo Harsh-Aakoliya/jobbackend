@@ -1,8 +1,8 @@
 package com.samsung.companyms.company.Impl;
 
-import com.samsung.jobbackend.company.Company;
-import com.samsung.jobbackend.company.CompanyRepository;
-import com.samsung.jobbackend.company.CompanyService;
+import com.samsung.companyms.company.Company;
+import com.samsung.companyms.company.CompanyRepository;
+import com.samsung.companyms.company.CompanyService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,7 +26,6 @@ public class CompanyServiceImpl implements CompanyService {
             Company existingCompany = companyOptional.get();
             existingCompany.setDescription(company.getDescription());
             existingCompany.setName(company.getName());
-            existingCompany.setJobs(company.getJobs());
             companyRepository.save(existingCompany);
             return true;
         }
