@@ -1,7 +1,6 @@
-package com.samsung.jobbackend.Review;
+package com.samsung.reviewms.Review;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.samsung.jobbackend.company.Company;
 import jakarta.persistence.*;
 
 @Entity
@@ -12,10 +11,7 @@ public class Review {
     private String title;
     private String description;
     private String rating;
-
-    @JsonIgnore
-    @ManyToOne
-    private Company company;
+    private Long companyId;
 
     public Long getId() {
         return id;
@@ -52,18 +48,19 @@ public class Review {
     public Review() {
     }
 
-    public Review(Long id, String title, String description, String rating) {
+    public Review(Long id, String title, String description, String rating, Long companyId) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.rating = rating;
+        this.companyId=companyId;
     }
 
-    public Company getCompany() {
-        return company;
+    public Long getCompanyId() {
+        return companyId;
     }
 
-    public void setCompany(Company company) {
-        this.company = company;
+    public void setCompanyId(Long companyId) {
+        this.companyId = companyId;
     }
 }

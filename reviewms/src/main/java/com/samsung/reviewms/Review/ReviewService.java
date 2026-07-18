@@ -1,6 +1,5 @@
-package com.samsung.jobbackend.Review;
-import org.jspecify.annotations.Nullable;
-import org.springframework.http.ResponseEntity;
+package com.samsung.reviewms.Review;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,7 +8,7 @@ import java.util.List;
 public interface ReviewService {
     public List<Review> getReviewsByCompanyId(Long companyId);
     String createReviewByCompanyId(Long id,Review review);
-    Review findReviewById(Long companyId, Long reviewId);
-    boolean updateReviewByid(Long companyId, Long reviewId, Review review);
-    boolean deletedReviewById(Long companyId, Long reviewId);
+    Review findReviewById(Long reviewId);
+    boolean updateReviewByid(Long reviewId, Review review);
+    boolean deletedReviewById(Long reviewId);
 }

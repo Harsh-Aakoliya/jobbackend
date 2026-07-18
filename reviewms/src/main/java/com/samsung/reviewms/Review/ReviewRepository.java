@@ -1,4 +1,4 @@
-package com.samsung.jobbackend.Review;
+package com.samsung.reviewms.Review;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
