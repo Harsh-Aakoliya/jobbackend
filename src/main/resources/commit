@@ -1,10 +1,44 @@
-now as of now if we start the container (docker compose up) then be default docker compose allows
-only one user to create for given database
+RestTemplate: it is a template in spring boot that simplify communication between microservices
+let say jobms needs to communicate with companyms to get details about company for given job
 
-as of now we have 3 MS and all 3 have different databases and we wil have 3 users (3 spring boot apps) who
-will access those db so
-after doing docker compose up and before starting all 3 MS we manually need to create 3 DB and 3 users
-with given username and password, failing to do so will cause error in starting the spring boot app as
-postgres server running at jdbc:postgresql://localhost:5432 do not have those 3 DBs
+below is the simple example of how RestTemplate is used to get some information about company endpoint api
+//if we want to include the details of company then we need to communicate to companyms
+RestTemplate restTemplate = new RestTemplate();
+Company company = restTemplate.getForObject("http://localhost:8081/companies/1", Company.class);//first parameter is request
+// endpoint and second is response will be of which type
+System.out.println("COMPANY" + company.getName());
+System.out.println("COMPANY" + company.getId());
 
-we can automate things when docker container starts but it's ok to create those 3 DBs manually....
+what is DTO
+let say if we make query to url
+http://localhost:8082/jobs then we are getting response as
+[
+    {
+        "id": 1,
+        "title": null,
+        "description": "this is job1",
+        "minSalary": "20,000",
+        "maxSalary": "1,00,00",
+        "location": null,
+        "companyId": 2
+    }
+]
+it is just including the companyId not the information about that company with Id as 2
+so with rest template we got the details of company with Id 2 now we need to add it to final response
+so final response = info about job + details of the company for that job
+{
+    "company": {
+        "description": "description of c2",
+        "id": 2,
+        "name": "c2"
+    },
+    "job": {
+        "id": 1,
+        "title": null,
+        "description": "this is job1",
+        "minSalary": "20,000",
+        "maxSalary": "1,00,00",
+        "location": null,
+        "companyId": 2
+    }
+}
