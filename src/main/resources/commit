@@ -1,10 +1,30 @@
-RestTemplate to Load balanced RestTemplate
+before interservice communication
+curl GET http://localhost:8082/job/1
 
-after setting up eureka clients and server if we make http call using client service name as
-instead of
-Company company = restTemplate.getForObject("http://localhost:8081/companies/"+job.getCompanyId(),Company.class);
-to
-Company company = restTemplate.getForObject("http://COMPANYMS/companies/"+job.getCompanyId(),Company.class);
+{
+  "id": 1,
+  "title": "Software Engineer Intern",
+  "description": "Backend API development.",
+  "minSalary": "60000",
+  "maxSalary": "85000",
+  "location": "Noida, India",
+  "companyId": 1
+}
 
-will not work as we are using normal version of restTemple not a Load Balanced one
-so AppConfig class provides that required LoadBalanced version of RestTemplate
+after communicating to company microservice
+{
+  "job": {
+    "id": 1,
+    "title": "Software Engineer Intern",
+    "description": "Backend API development.",
+    "minSalary": "60000",
+    "maxSalary": "85000",
+    "location": "Noida, India",
+    "companyId": 1
+  },
+  "company": {
+    "description": "Global tech leader.",
+    "id": 1,
+    "name": "Samsung Electronics"
+  }
+}
