@@ -1,44 +1,23 @@
-RestTemplate: it is a template in spring boot that simplify communication between microservices
-let say jobms needs to communicate with companyms to get details about company for given job
+service registry
+A service registry is used in microservice architecture to enable dynamic service discovery
+as if now we are hardcoding the url of other microservice whome to talk
+Instead of that every microservice will register it self into service registry
+In our case job microservice is talking to company microservice like below
+restTemplate.getForObject("http://localhost:8081/companies/"+job.getCompanyId(),Company.class);
 
-below is the simple example of how RestTemplate is used to get some information about company endpoint api
-//if we want to include the details of company then we need to communicate to companyms
-RestTemplate restTemplate = new RestTemplate();
-Company company = restTemplate.getForObject("http://localhost:8081/companies/1", Company.class);//first parameter is request
-// endpoint and second is response will be of which type
-System.out.println("COMPANY" + company.getName());
-System.out.println("COMPANY" + company.getId());
+so Company microservice will register it self to service registry and then job microservice will make service discovery request to service registry 
 
-what is DTO
-let say if we make query to url
-http://localhost:8082/jobs then we are getting response as
-[
-    {
-        "id": 1,
-        "title": null,
-        "description": "this is job1",
-        "minSalary": "20,000",
-        "maxSalary": "1,00,00",
-        "location": null,
-        "companyId": 2
-    }
-]
-it is just including the companyId not the information about that company with Id as 2
-so with rest template we got the details of company with Id 2 now we need to add it to final response
-so final response = info about job + details of the company for that job
-{
-    "company": {
-        "description": "description of c2",
-        "id": 2,
-        "name": "c2"
-    },
-    "job": {
-        "id": 1,
-        "title": null,
-        "description": "this is job1",
-        "minSalary": "20,000",
-        "maxSalary": "1,00,00",
-        "location": null,
-        "companyId": 2
-    }
-}
+spring cloud eureka is one of such service registry
+
+
+for servicereg project we need spring web and spring eureka server two dependencies
+now before even starting the application we need to tell springboot to consider this as a eureka server so add @EnableEurekaServer
+annotation in ServiceregApplication class a root file
+
+and specify 
+eureka.client.register-with-eureka = false
+eureka.client.fetch-registry=false
+
+in application.properties
+
+http://localhost:8761/ opens interface for eureka server
