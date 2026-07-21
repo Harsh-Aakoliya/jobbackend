@@ -1,23 +1,14 @@
-Here we have nested json for job as well
-{
-  "job": {
-    "id": 1,
-    "title": "Software Engineer Intern",
-    "description": "Backend API development.",
-    "minSalary": "60000",
-    "maxSalary": "85000",
-    "location": "Noida, India",
-    "companyId": 1
-  },
-  "company": {
-    "description": "Global tech leader.",
-    "id": 1,
-    "name": "Samsung Electronics"
-  }
-}
-but nested json is only needed for company only..
-also in inner "job" json we are returning companyId which is not needed now
-Below is result after introduction to mapper class
+Add information about reviews for this company too
+restTemplate.exchange() it is more powerful then just restTemplate.getForObject
+so whenever we are working with generic type in our case it is List<JobWithCompanyReviewDTO>> we can use this .exchange() method
+ResponseEntity<List<Review>> reviewResponse = restTemplate.exchange(
+                "http://REVIEWMS:8083/reviews?companyId=" + job.getCompanyId(), #api end point
+                HttpMethod.GET,//api http method
+                null,//request body
+                new ParameterizedTypeReference<List<Review>>() {}//
+        );
+
+Before it was only including the information about compnay
 {
   "id": 1,
   "title": "Software Engineer Intern",
@@ -30,4 +21,32 @@ Below is result after introduction to mapper class
     "id": 1,
     "name": "Samsung Electronics"
   }
+}
+
+now it will include the information about reviews too
+{
+  "id": 1,
+  "title": "Software Engineer Intern"
+  "description": "Backend API development using Spring Boot.",  "minSalary": "60000",
+  "maxSalary": "85000",
+  "location": "Noida, India",
+  "company": {
+     "description": "Global tech leader.",
+     "id": 1,
+     "name": "Samsung Electronics"
+  },
+  "reviews": [
+    {
+      "description": "Amazing learning opportunities, supportive teams, and excellent work-life balance.",
+      "id": 1,
+      "rating": "4.5",
+      "title": "bad Work Culture"
+    },
+    {
+      "description": "Amazing learning opportunities, supportive teams, and excellent work-life balance.",
+      "id": 2,
+      "rating": "4.5",
+      "title": "Great Work Culture"
+    }
+  ]
 }

@@ -1,13 +1,13 @@
 package com.samsung.jobms.job;
 
-import com.samsung.jobms.job.dto.JobWithCompanyDTO;
+import com.samsung.jobms.job.dto.JobWithCompanyReviewDTO;
 
 import java.util.List;
 
 public interface JobService {
-    List<JobWithCompanyDTO> findAllJobs();
+    List<JobWithCompanyReviewDTO> findAllJobs();
     String createJob(Job job);
-    JobWithCompanyDTO findJobById(Long id);
+    JobWithCompanyReviewDTO findJobById(Long id);
     boolean deleteJobById(Long id);
     boolean updateJobById(Long id, Job job);
 }

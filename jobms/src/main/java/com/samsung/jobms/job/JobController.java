@@ -1,6 +1,6 @@
 package com.samsung.jobms.job;
 
-import com.samsung.jobms.job.dto.JobWithCompanyDTO;
+import com.samsung.jobms.job.dto.JobWithCompanyReviewDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +14,7 @@ public class JobController {
         this.jobService = jobService;
     }
     @GetMapping("/jobs")
-    public ResponseEntity<List<JobWithCompanyDTO>> findAll(){
+    public ResponseEntity<List<JobWithCompanyReviewDTO>> findAll(){
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(jobService.findAllJobs());
@@ -24,8 +24,8 @@ public class JobController {
         return ResponseEntity.status(HttpStatus.CREATED).body(jobService.createJob(job));
     }
     @GetMapping("/job")
-    public ResponseEntity<JobWithCompanyDTO> findJobByIdUsingRequestParam(@RequestParam Long jobId){
-        JobWithCompanyDTO existingJob = jobService.findJobById(jobId);
+    public ResponseEntity<JobWithCompanyReviewDTO> findJobByIdUsingRequestParam(@RequestParam Long jobId){
+        JobWithCompanyReviewDTO existingJob = jobService.findJobById(jobId);
         if(existingJob == null){
             return ResponseEntity.notFound().build();
         }
@@ -34,8 +34,8 @@ public class JobController {
                 .body(existingJob);
     }
     @GetMapping("/job/{job_id}")
-    public ResponseEntity<JobWithCompanyDTO> findJobByIdUsingPathvariable(@PathVariable("job_id") Long jobId){
-        JobWithCompanyDTO existingJob = jobService.findJobById(jobId);
+    public ResponseEntity<JobWithCompanyReviewDTO> findJobByIdUsingPathvariable(@PathVariable("job_id") Long jobId){
+        JobWithCompanyReviewDTO existingJob = jobService.findJobById(jobId);
         if(existingJob == null){
             return ResponseEntity.notFound().build();
         }

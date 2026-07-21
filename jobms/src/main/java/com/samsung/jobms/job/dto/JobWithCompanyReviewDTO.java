@@ -1,9 +1,11 @@
 package com.samsung.jobms.job.dto;
 
-import com.samsung.jobms.job.Job;
 import com.samsung.jobms.job.external.Company;
+import com.samsung.jobms.job.external.Review;
 
-public class JobWithCompanyDTO {
+import java.util.List;
+
+public class JobWithCompanyReviewDTO {
     private Long id;
     private String title;
     private String description;
@@ -11,6 +13,7 @@ public class JobWithCompanyDTO {
     private String maxSalary;
     private String location;
     private Company company;
+    private List<Review> reviews;
 
     public Company getCompany() {
         return company;
@@ -66,5 +69,13 @@ public class JobWithCompanyDTO {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
     }
 }
