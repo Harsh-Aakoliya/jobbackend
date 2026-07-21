@@ -1,23 +1,12 @@
-service registry
-A service registry is used in microservice architecture to enable dynamic service discovery
-as if now we are hardcoding the url of other microservice whome to talk
-Instead of that every microservice will register it self into service registry
-In our case job microservice is talking to company microservice like below
-restTemplate.getForObject("http://localhost:8081/companies/"+job.getCompanyId(),Company.class);
+For eureka client (all 3 microservices)
+in current application.properties the properties specified
+eureka.client.register-with-eureka = true
+eureka.client.fetch-registry = true
+eureka.client.serviceUrl.defaultZone=http://localhost:8761/eureka/
+are optional and currently filled as it is it's default value so we can ommit defining above 3 properties for all as all are filled with default properties only
 
-so Company microservice will register it self to service registry and then job microservice will make service discovery request to service registry 
+servicereg should be started first and then all 3 microservices should started not doing so will result into
+error such as not able to find eureka server etc.. 
 
-spring cloud eureka is one of such service registry
-
-
-for servicereg project we need spring web and spring eureka server two dependencies
-now before even starting the application we need to tell springboot to consider this as a eureka server so add @EnableEurekaServer
-annotation in ServiceregApplication class a root file
-
-and specify 
-eureka.client.register-with-eureka = false
-eureka.client.fetch-registry=false
-
-in application.properties
-
-http://localhost:8761/ opens interface for eureka server
+after successfull registration on the dashboard of eureka server(localhost:8761) we will see all the instances registered with eureka server
+"Instances currently registered with Eureka"
