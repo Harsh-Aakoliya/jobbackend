@@ -1,12 +1,10 @@
-For eureka client (all 3 microservices)
-in current application.properties the properties specified
-eureka.client.register-with-eureka = true
-eureka.client.fetch-registry = true
-eureka.client.serviceUrl.defaultZone=http://localhost:8761/eureka/
-are optional and currently filled as it is it's default value so we can ommit defining above 3 properties for all as all are filled with default properties only
+RestTemplate to Load balanced RestTemplate
 
-servicereg should be started first and then all 3 microservices should started not doing so will result into
-error such as not able to find eureka server etc.. 
+after setting up eureka clients and server if we make http call using client service name as
+instead of
+Company company = restTemplate.getForObject("http://localhost:8081/companies/"+job.getCompanyId(),Company.class);
+to
+Company company = restTemplate.getForObject("http://COMPANYMS/companies/"+job.getCompanyId(),Company.class);
 
-after successfull registration on the dashboard of eureka server(localhost:8761) we will see all the instances registered with eureka server
-"Instances currently registered with Eureka"
+will not work as we are using normal version of restTemple not a Load Balanced one
+so AppConfig class provides that required LoadBalanced version of RestTemplate

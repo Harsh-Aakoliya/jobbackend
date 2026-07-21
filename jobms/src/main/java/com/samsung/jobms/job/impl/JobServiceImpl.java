@@ -5,6 +5,7 @@ import com.samsung.jobms.job.JobRepository;
 import com.samsung.jobms.job.JobService;
 import com.samsung.jobms.job.dto.JobWithCompanyDTO;
 import com.samsung.jobms.job.external.Company;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -19,14 +20,16 @@ public class JobServiceImpl implements JobService {
         this.jobRepository = jobRepository;
     }
 
+    @Autowired
+    RestTemplate restTemplate;
+
     @Override
     public List<JobWithCompanyDTO> findAllJobs() {
         List<Job> jobs = jobRepository.findAll();
         List<JobWithCompanyDTO> jobWithCompanyDTOS = new ArrayList<>();
-        RestTemplate restTemplate = new RestTemplate();
         for(Job job: jobs){
             JobWithCompanyDTO jobWithCompanyDTO = new JobWithCompanyDTO();
-            Company company = restTemplate.getForObject("http://localhost:8081/companies/"+job.getCompanyId(),Company.class);
+            Company company = restTemplate.getForObject("http://COMPANYMS/companies/"+job.getCompanyId(),Company.class);
             jobWithCompanyDTO.setCompany(company);
             jobWithCompanyDTO.setJob(job);
 
