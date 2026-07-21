@@ -1,17 +1,4 @@
-before interservice communication
-curl GET http://localhost:8082/job/1
-
-{
-  "id": 1,
-  "title": "Software Engineer Intern",
-  "description": "Backend API development.",
-  "minSalary": "60000",
-  "maxSalary": "85000",
-  "location": "Noida, India",
-  "companyId": 1
-}
-
-after communicating to company microservice
+Here we have nested json for job as well
 {
   "job": {
     "id": 1,
@@ -22,6 +9,22 @@ after communicating to company microservice
     "location": "Noida, India",
     "companyId": 1
   },
+  "company": {
+    "description": "Global tech leader.",
+    "id": 1,
+    "name": "Samsung Electronics"
+  }
+}
+but nested json is only needed for company only..
+also in inner "job" json we are returning companyId which is not needed now
+Below is result after introduction to mapper class
+{
+  "id": 1,
+  "title": "Software Engineer Intern",
+  "description": "Backend API development.",
+  "minSalary": "60000",
+  "maxSalary": "85000",
+  "location": "Noida, India",
   "company": {
     "description": "Global tech leader.",
     "id": 1,
