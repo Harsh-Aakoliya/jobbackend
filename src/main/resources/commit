@@ -1,12 +1,22 @@
-open feign
-feign is a declarative web service-client designed to make writing HTTP clients easier
-so as of now to communicate between two microservices we are using RestTemplate
-for this resttemplate we need to write boilerplate again and again
+zipkin provides how one request is going through the entire distributed system
+while micrometer gives you bird eye view of entire system like aggregated metric information
 
-for example below code
-Company company = restTemplate.getForObject("http://COMPANYMS/companies/"+job.getCompanyId(),Company.class);
+In Spring Boot 3.x, you typically had to add dependencies like:
+spring-boot-starter-actuator
+micrometer-tracing-bridge-brave
+zipkin-reporter-brave
 
-will be converted to
-Company company = companyClient.getCompany(job.getCompanyId());
+but In Spring Boot 4.x, the Spring team introduced the higher-level spring-boot-starter-zipkin
+starter so that users don't need to know or manage the individual tracing libraries.
+so we only need to add below dependency
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-zipkin</artifactId>
+</dependency>
 
-Feign internally uses Ribbon to provide client-side load balancing and service discovery
+now as in jobms we are just using feign so we need to add a dependency for micrometer
+<dependency>
+    <groupId>io.github.openfeign</groupId>
+    <artifactId>feign-micrometer</artifactId>
+</dependency>
+so that it can trace the data for interservice communication for feign client related queries.

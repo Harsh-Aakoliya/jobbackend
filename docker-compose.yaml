@@ -22,5 +22,12 @@ services:
     networks:
       - jobbackend_network
 
+  zipkin:
+    container_name: jobbackend_zipkin
+    image: openzipkin/zipkin
+    ports:
+      - 9411:9411
+    networks:
+      - jobbackend_network
 networks:
   jobbackend_network:
